@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?> 
 <!--
 Copyright (C) 2012 The Android Open Source Project
 
@@ -20,7 +20,7 @@ limitations under the License.
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="13"
         android:targetSdkVersion="15" />
 
     <application
@@ -42,7 +42,7 @@ limitations under the License.
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name=".TestImageViewActivity"
+            android:name="com.tearoffcalendar.activities.TestImageViewActivity"
             android:label="@string/title_activity_test_image_view" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -58,5 +58,4 @@ limitations under the License.
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
