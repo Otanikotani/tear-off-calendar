@@ -22,6 +22,8 @@ public class TestImageViewActivity extends Activity implements OnTouchListener {
 
 	private float bottomLimitToMove;
 	float mX, mY;
+	
+	private static final String TAG = "TestImageViewActivity";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -56,18 +58,18 @@ public class TestImageViewActivity extends Activity implements OnTouchListener {
 		// printImageCoordinates();
 		switch (event.getAction() & MotionEvent.ACTION_MASK) {
 		case MotionEvent.ACTION_DOWN:
-			Log.w("Touch:", "Action down!");
+			Log.v(TAG, "Touch: Action down!");
 			mX = x;
 			mY = y;
 			break;
 		case MotionEvent.ACTION_UP:
-			Log.w("Touch:", "Action up!");
+			Log.v(TAG, "Touch: Action up!");
 			break;
 		case MotionEvent.ACTION_POINTER_DOWN:
-
+			Log.v(TAG, "Touch: Action pointer down!");
 			break;
 		case MotionEvent.ACTION_POINTER_UP:
-			Log.w("Touch:", "Action pointer up!");
+			Log.v(TAG, "Touch: Action pointer up!");
 			break;
 		case MotionEvent.ACTION_MOVE:
 			float deltaY = y - mY;
@@ -77,9 +79,9 @@ public class TestImageViewActivity extends Activity implements OnTouchListener {
 			yDifferenceToString.append(deltaY);
 
 			// printImageCoordinates();
-			Log.w("Image y:", String.valueOf(imageToMove.getY()));
+			Log.v(TAG, "Image y: " + String.valueOf(imageToMove.getY()));
 			if (imageToMove.getY() >= bottomLimitToMove) {
-				Log.w("Activity:", "Starting TextCardActivity!");
+				Log.v(TAG, "Activity: Starting TextCardActivity!");
 				Intent intent = new Intent(TestImageViewActivity.this,
 						TextCardActivity.class);
 				startActivity(intent);
@@ -89,15 +91,15 @@ public class TestImageViewActivity extends Activity implements OnTouchListener {
 		return true;
 	}
 
-	private void printCoordinates(float x, float y) {
-		StringBuilder coordinatesToString = new StringBuilder();
-		coordinatesToString.append(x);
-		coordinatesToString.append(", ");
-		coordinatesToString.append(y);
-		Log.w("Coordinates: ", coordinatesToString.toString());
-	}
-
-	private void printImageCoordinates() {
-		printCoordinates(imageToMove.getX(), imageToMove.getY());
-	}
+//	private void printCoordinates(float x, float y) {
+//		StringBuilder coordinatesToString = new StringBuilder();
+//		coordinatesToString.append(x);
+//		coordinatesToString.append(", ");
+//		coordinatesToString.append(y);
+//		Log.v(TAG, "Coordinates: " + coordinatesToString.toString());
+//	}
+//
+//	private void printImageCoordinates() {
+//		printCoordinates(imageToMove.getX(), imageToMove.getY());
+//	}
 }

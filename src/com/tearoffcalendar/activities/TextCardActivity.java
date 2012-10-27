@@ -16,9 +16,11 @@ public class TextCardActivity extends Activity implements OnTouchListener {
 
 	private WebView mMainView;
 
-	float deltaY = 0;
-	float clickStartedOnY = 0;
-	static final int DELTA_Y_MAX = 100;
+	private float deltaY = 0;
+	private float clickStartedOnY = 0;
+	private static final int DELTA_Y_MAX = 100;
+	
+	private static final String TAG = "TextCardActivity";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,18 +53,18 @@ public class TextCardActivity extends Activity implements OnTouchListener {
 		final float y = event.getRawY();
 		switch (event.getAction() & MotionEvent.ACTION_MASK) {
 		case MotionEvent.ACTION_DOWN:
-			Log.w("Touch:", "Action down!");
+			Log.v(TAG, "Touch: Action down!");
 			deltaY = 0;
 			clickStartedOnY = y;
-			Log.w("DEBUG: Click started on: ", String.valueOf(clickStartedOnY));
+			Log.v(TAG, "Click started on:" + String.valueOf(clickStartedOnY));
 			break;
 		case MotionEvent.ACTION_UP:
-			Log.w("DEBUG: Resulted deltaY:", String.valueOf(deltaY));
+			Log.v(TAG, "Resulted deltaY:" + String.valueOf(deltaY));
 			// This one is for when finger is up, not a rude gesture bro!
 			if (deltaY >= DELTA_Y_MAX) {
-				Log.w("DEBUG:", "Greater than max of delta y - not a click!");
+				Log.v(TAG, "Greater than max of delta y - not a click!");
 			} else {
-				Log.w("DEBUG:", "Smaller than max of delta y - a click!");
+				Log.v(TAG, "Smaller than max of delta y - a click!");
 				Intent intent = new Intent(TextCardActivity.this,
 						TestImageViewActivity.class);
 				startActivity(intent);
@@ -70,17 +72,17 @@ public class TextCardActivity extends Activity implements OnTouchListener {
 			deltaY = clickStartedOnY = 0;
 			break;
 		case MotionEvent.ACTION_POINTER_DOWN:
-			Log.w("Touch:", "Action pointer down!");
+			Log.v(TAG, "Touch: Action pointer down!");
 			break;
 		case MotionEvent.ACTION_POINTER_UP:
-			Log.w("Touch:", "Action pointer up!");
+			Log.v(TAG, "Touch: Action pointer up!");
 			break;
 		case MotionEvent.ACTION_MOVE:
-			Log.w("Touch:", "Action move!");
+			Log.v(TAG, "Touch: Action move!");
 			deltaY += Math.abs(y - clickStartedOnY);
-			Log.w("DEBUG: Current delta: ", String.valueOf(deltaY));
+			Log.v(TAG, "Current delta: " + String.valueOf(deltaY));
 			break;
 		}
-		return true;
+		return false;
 	}
 }
