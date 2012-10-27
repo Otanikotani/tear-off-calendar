@@ -8,39 +8,43 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.android.lifecycle.util.StatusTracker;
 
 public class TestImageViewActivity extends Activity implements OnTouchListener {
-	
+
 	private StatusTracker mStatusTracker = StatusTracker.getInstance();
 	private ImageView imageToMove;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_image_view);
-        
-        Log.w("Tag", "On create");
-        imageToMove = (ImageView)findViewById(R.id.imageView1);
-        imageToMove.setOnTouchListener(this);
-    }
+	int mX, mY;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_test_image_view, menu);
-        return true;
-    }
-    
-    public boolean onTouch(View v, MotionEvent event) {
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_test_image_view);
+
+		Log.w("Tag", "On create");
+		imageToMove = (ImageView) findViewById(R.id.imageView1);
+		imageToMove.setOnTouchListener(this);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_test_image_view, menu);
+		return true;
+	}
+
+	public boolean onTouch(View view, MotionEvent event) {
     	mStatusTracker.setStatus("TestImageViewActivity", "On touch!");
     	
-        final int X = (int) event.getRawX();
-        final int Y = (int) event.getRawY();
+        final int x = (int) event.getRawX();
+        final int y = (int) event.getRawY();
+        
         StringBuilder coordinatesToString = new StringBuilder();
-        coordinatesToString.append(X);
+        coordinatesToString.append(x);
         coordinatesToString.append(", ");
-        coordinatesToString.append(Y);
+        coordinatesToString.append(y);
         String xy = coordinatesToString.toString();
         Log.w("Coordinates:", xy);
         
@@ -53,9 +57,8 @@ public class TestImageViewActivity extends Activity implements OnTouchListener {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
             	Log.w("Touch:", "Action down!");
-//                RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-//                _xDelta = X - lParams.leftMargin;
-//                _yDelta = Y - lParams.topMargin;
+            	mX = x;
+            	mY = y;
                 break;
             case MotionEvent.ACTION_UP:
             	Log.w("Touch:", "Action up!");
@@ -67,16 +70,13 @@ public class TestImageViewActivity extends Activity implements OnTouchListener {
             	Log.w("Touch:", "Action pointer up!");
                 break;
             case MotionEvent.ACTION_MOVE:
-            	Log.w("Touch:", "Action move!");
-            	imageToMove.setX(X);
-            	imageToMove.setY(Y);
+            	float deltaY = y - mY;
+            	imageToMove.setY(deltaY);
             	imageToMove.invalidate();
-//                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-//                layoutParams.leftMargin = X - _xDelta;
-//                layoutParams.topMargin = Y - _yDelta;
-//                layoutParams.rightMargin = -250;
-//                layoutParams.bottomMargin = -250;
-//                view.setLayoutParams(layoutParams);
+            	Log.w("Touch:", "Action move!");
+            	StringBuilder yDifferenceToString = new StringBuilder();
+            	yDifferenceToString.append(deltaY);
+            	Log.w("Touch:", yDifferenceToString.toString());
                 break;
         }    	
     	return true;
