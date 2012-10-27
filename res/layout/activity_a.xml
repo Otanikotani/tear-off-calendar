@@ -71,6 +71,24 @@ limitations under the License.
             android:onClick="startTestImageView"
             android:text="@string/test_image_view_label" />
 
+        <Button
+            android:id="@+id/Button01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:onClick="startActivityB"
+            android:text="@string/btn_start_b_label" />
+
+        <Button
+            android:id="@+id/btn_start_textcard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="false"
+            android:layout_centerVertical="true"
+            android:onClick="startTextCardView"
+            android:text="@string/btn_text_card" />
+
     </RelativeLayout>
 
     <TextView
@@ -87,7 +105,7 @@ limitations under the License.
         <TextView
             android:id="@+id/status_view_a"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             android:textColor="@color/black"
             android:padding="4dip"
