@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<theme>
+  <name>Second cool theme</name>
+  <description>This is a cool theme about cool stuff</description>
+  <startdate>2012-10-28</startdate>
+  <enddate>2012-10-31</enddate>
+  <textcards>
+    <textcard>
+      <date>2012-10-28</date>
+      <text>
+        <![CDATA[
+        <html>
+          <head></head>
+          <body>
+            This is a <b>test</b> text card for 28th of Octover, 2012. The text here should be entertaining, not as boring as it is.
+          </body>
+        </html>
+        ]]>
+      </text>
+    </textcard>
+    <textcard>
+      <date>2012-10-29</date>
+      <text>
+        <![CDATA[
+        <html>
+          <head></head>
+          <body>
+            This is another <b>test</b> text card for 29th of Octover, 2012. The text here should be entertaining, not as boring as it is.
+          </body>
+        </html>
+        ]]>
+      </text>
+    </textcard>
+    <textcard>
+      <date>2012-10-30</date>
+      <text>
+        <![CDATA[
+        <html>
+          <head></head>
+          <body>
+            This is extra <b>test</b> text card for 30th of Octover, 2012. The text here should be entertaining, not as boring as it is.
+</body>
+        </html>
+      ]]>
+      </text>
+    </textcard>
+    <textcard>
+      <date>2012-10-31</date>
+      <text>
+        <![CDATA[
+        <html>
+          <head></head>
+          <body>
+            This is the last <b>test</b> text card for 31th of Octover, 2012. The text here should be entertaining, not as boring as it is.
+          </body>
+        </html>
+        ]]>
+      </text>
+    </textcard>
+  </textcards>
+</theme>
