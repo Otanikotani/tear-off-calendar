@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.example.android.lifecycle.util.StatusTracker;
 import com.example.android.lifecycle.util.Utils;
+import com.tearoffcalendar.activities.TextCardActivity;
 
 /**
  * Example Activity to demonstrate the lifecycle callback methods.
@@ -99,6 +100,11 @@ public class ActivityA extends Activity {
 
     public void startActivityC(View v) {
         Intent intent = new Intent(ActivityA.this, ActivityC.class);
+        startActivity(intent);
+    }
+    
+    public void startTextCardView(View v) {
+        Intent intent = new Intent(ActivityA.this, TextCardActivity.class);
         startActivity(intent);
     }
 
