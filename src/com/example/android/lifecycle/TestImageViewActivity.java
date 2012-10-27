@@ -1,6 +1,7 @@
 package com.example.android.lifecycle;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,57 +44,58 @@ public class TestImageViewActivity extends Activity implements OnTouchListener {
 		getMenuInflater().inflate(R.menu.activity_test_image_view, menu);
 		return true;
 	}
-	
-	
 
 	public boolean onTouch(View view, MotionEvent event) {
-    	mStatusTracker.setStatus("TestImageViewActivity", "On touch!");
-    	
-        final float x = event.getRawX();
-        final float y = event.getRawY();
-        
-//        printCoordinates(x, y);
-//        printImageCoordinates();
-        switch (event.getAction() & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_DOWN:
-            	Log.w("Touch:", "Action down!");
-            	mX = x;
-            	mY = y;
-                break;
-            case MotionEvent.ACTION_UP:
-            	Log.w("Touch:", "Action up!");
-                break;
-            case MotionEvent.ACTION_POINTER_DOWN:
+		mStatusTracker.setStatus("TestImageViewActivity", "On touch!");
 
-                break;
-            case MotionEvent.ACTION_POINTER_UP:
-            	Log.w("Touch:", "Action pointer up!");
-                break;
-            case MotionEvent.ACTION_MOVE:
-            	float deltaY = y - mY;
-            	imageToMove.setY(deltaY);
-            	imageToMove.invalidate();
-            	StringBuilder yDifferenceToString = new StringBuilder();
-            	yDifferenceToString.append(deltaY);
-            	
-//            	printImageCoordinates();
-            	Log.w("Image y:", String.valueOf(imageToMove.getY()));
-            	if (imageToMove.getY() >= bottomLimitToMove) {
-            		Log.w("Touch:", "Go to another activity!");
-            	}            	
-                break;
-        }    	
-    	return true;
-    }
-	
-	private void printCoordinates(float x, float y) {
-        StringBuilder coordinatesToString = new StringBuilder();
-        coordinatesToString.append(x);
-        coordinatesToString.append(", ");
-        coordinatesToString.append(y);
-        Log.w("Coordinates: ", coordinatesToString.toString());
+		final float x = event.getRawX();
+		final float y = event.getRawY();
+
+		// printCoordinates(x, y);
+		// printImageCoordinates();
+		switch (event.getAction() & MotionEvent.ACTION_MASK) {
+		case MotionEvent.ACTION_DOWN:
+			Log.w("Touch:", "Action down!");
+			mX = x;
+			mY = y;
+			break;
+		case MotionEvent.ACTION_UP:
+			Log.w("Touch:", "Action up!");
+			break;
+		case MotionEvent.ACTION_POINTER_DOWN:
+
+			break;
+		case MotionEvent.ACTION_POINTER_UP:
+			Log.w("Touch:", "Action pointer up!");
+			break;
+		case MotionEvent.ACTION_MOVE:
+			float deltaY = y - mY;
+			imageToMove.setY(deltaY);
+			imageToMove.invalidate();
+			StringBuilder yDifferenceToString = new StringBuilder();
+			yDifferenceToString.append(deltaY);
+
+			// printImageCoordinates();
+			Log.w("Image y:", String.valueOf(imageToMove.getY()));
+			if (imageToMove.getY() >= bottomLimitToMove) {
+				Log.w("Activity:", "Starting TextCardActivity!");
+				Intent intent = new Intent(TestImageViewActivity.this,
+						com.tearoffcalendar.activities.TextCardActivity.class);
+				startActivity(intent);
+			}
+			break;
+		}
+		return true;
 	}
-	
+
+	private void printCoordinates(float x, float y) {
+		StringBuilder coordinatesToString = new StringBuilder();
+		coordinatesToString.append(x);
+		coordinatesToString.append(", ");
+		coordinatesToString.append(y);
+		Log.w("Coordinates: ", coordinatesToString.toString());
+	}
+
 	private void printImageCoordinates() {
 		printCoordinates(imageToMove.getX(), imageToMove.getY());
 	}
