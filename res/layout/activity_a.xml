@@ -64,13 +64,12 @@ limitations under the License.
             />
 
         <Button
-            android:id="@+id/btn_start_dialog"
-            android:layout_height="wrap_content"
+            android:id="@+id/btn_test_image_view"
             android:layout_width="wrap_content"
-            android:text="@string/btn_start_dialog_label"
-            android:layout_toRightOf="@id/btn_finish_a"
-            android:onClick="startDialog"
-            />
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/btn_finish_a"
+            android:onClick="startTestImageView"
+            android:text="@string/test_image_view_label" />
 
     </RelativeLayout>
 

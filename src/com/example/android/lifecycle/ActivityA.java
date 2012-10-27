@@ -105,5 +105,10 @@ public class ActivityA extends Activity {
     public void finishActivityA(View v) {
         ActivityA.this.finish();
     }
+    
+    public void startTestImageView(View v) {
+    	Intent intent = new Intent(ActivityA.this, TestImageViewActivity.class);
+    	startActivity(intent);
+    }
 
 }
