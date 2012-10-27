@@ -20,6 +20,7 @@ public class TextCardActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_card);
         mMainView = (WebView)findViewById(R.id.text_card_web_view);
+        mMainView.setBackgroundColor(0);
         
         // TODO: html code should be provided by a ThemeManager;
         // code below is for demonstration only and will be removed; no need to extract this html to reources manually
