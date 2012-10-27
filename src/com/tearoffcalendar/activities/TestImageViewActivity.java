@@ -1,4 +1,4 @@
-package com.example.android.lifecycle;
+package com.tearoffcalendar.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 
+import com.example.android.lifecycle.R;
 import com.example.android.lifecycle.util.StatusTracker;
 
 public class TestImageViewActivity extends Activity implements OnTouchListener {
@@ -80,7 +81,7 @@ public class TestImageViewActivity extends Activity implements OnTouchListener {
 			if (imageToMove.getY() >= bottomLimitToMove) {
 				Log.w("Activity:", "Starting TextCardActivity!");
 				Intent intent = new Intent(TestImageViewActivity.this,
-						com.tearoffcalendar.activities.TextCardActivity.class);
+						TextCardActivity.class);
 				startActivity(intent);
 			}
 			break;

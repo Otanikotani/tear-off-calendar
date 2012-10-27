@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.example.android.lifecycle.util.StatusTracker;
 import com.example.android.lifecycle.util.Utils;
+import com.tearoffcalendar.activities.TestImageViewActivity;
 import com.tearoffcalendar.activities.TextCardActivity;
 
 /**
