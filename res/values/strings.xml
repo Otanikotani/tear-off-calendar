@@ -56,5 +56,8 @@ limitations under the License.
     <string name="title_activity_test_image_view">TestImageViewActivity</string>
     <string name="title_activity_text_card">Text card</string>
     <string name="btn_text_card">Start text card</string>
+    <string name="helloworld">Hello world</string>
+    <string name="title_activity_limit_exceeded_dialog">LimitExceededDialogActivity</string>
+    <string name="limit_exceeded_dialog_text">5 days only!</string>
 
 </resources>

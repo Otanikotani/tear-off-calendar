@@ -4,14 +4,20 @@
     android:layout_height="match_parent"
     android:tag="imageActivity" >
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_medium"
+        android:textColor="@color/light_blue"
+        android:text="@string/helloworld"
+        />   
+            
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:rotation="90"
         android:scaleType="fitXY"
         android:src="@drawable/calendar" />
-
 </RelativeLayout>
