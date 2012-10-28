@@ -1,5 +1,6 @@
 package com.tearoffcalendar.activities;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
@@ -13,6 +14,10 @@ import android.view.View.OnTouchListener;
 import android.webkit.WebView;
 
 import com.example.android.lifecycle.R;
+import com.tearoffcalendar.app.TearOffApp;
+import com.tearoffcalendar.themes.BasicTheme;
+import com.tearoffcalendar.themes.BasicThemeManager;
+import com.tearoffcalendar.themes.ThemeException;
 
 public class TextCardActivity extends Activity implements OnTouchListener {
 
@@ -55,6 +60,26 @@ public class TextCardActivity extends Activity implements OnTouchListener {
 								+ "</body></html>", "text/html", "utf-8", null);
 
 		mMainView.setOnTouchListener(this);
+		
+		// TODO: debug code to list all themes - to be removed
+		Calendar c = Calendar.getInstance();
+		BasicThemeManager manager = TearOffApp.getInstance().getThemeManager();
+		for (BasicTheme theme: manager.getAvailableThemes()) {
+			Log.v(TAG, "Theme name:" + theme.getName());
+			Log.v(TAG, "Theme start date:" + theme.getStartDate());
+			Log.v(TAG, "Theme end date:" + theme.getEndDate());
+			Log.v(TAG, "Theme text cards:");			
+			c.setTime(theme.getStartDate());			
+			while (!c.getTime().after(theme.getEndDate())) {
+				Log.v(TAG, "Card for day " + c.getTime());
+				try {
+					Log.v(TAG, theme.getTextCard(c.getTime()));
+				} catch (ThemeException e) {
+					Log.e(TAG, "Error printing theme", e);
+				}				
+				c.add(Calendar.DAY_OF_MONTH, 1);
+			}
+		}	
 	}
 
 	@Override
