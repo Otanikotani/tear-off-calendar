@@ -11,6 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:rotation="90"
-        android:src="@drawable/howden_calm_reservoir" />
+        android:scaleType="fitXY"
+        android:src="@drawable/calendar" />
 
 </RelativeLayout>
