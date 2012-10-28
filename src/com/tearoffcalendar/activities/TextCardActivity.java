@@ -1,5 +1,7 @@
 package com.tearoffcalendar.activities;
 
+import java.util.Date;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +21,7 @@ public class TextCardActivity extends Activity implements OnTouchListener {
 	private float deltaY = 0;
 	private float clickStartedOnY = 0;
 	private static final int DELTA_Y_MAX = 100;
-	
+
 	private static final String TAG = "TextCardActivity";
 
 	@Override
@@ -28,6 +30,18 @@ public class TextCardActivity extends Activity implements OnTouchListener {
 		setContentView(R.layout.activity_text_card);
 		mMainView = (WebView) findViewById(R.id.text_card_web_view);
 		mMainView.setBackgroundColor(0);
+
+		// We need to know card id here.
+		Intent intent = getIntent();
+		int cardId = intent.getIntExtra(TestImageViewActivity.IMAGE_KEY, -1);
+		if (-1 == cardId) {
+			//Bad things happen!
+		} else {
+			Log.v(TAG, "Card id: " + String.valueOf(cardId));
+			Date date = TestImageViewActivity.convertIdToDate(cardId);
+			Log.v(TAG, "Date: " + String.valueOf(date));
+		}
+		
 
 		// TODO: html code should be provided by a ThemeManager;
 		// code below is for demonstration only and will be removed; no need to

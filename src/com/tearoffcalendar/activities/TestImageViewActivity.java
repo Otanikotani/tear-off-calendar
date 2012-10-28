@@ -1,6 +1,7 @@
 package com.tearoffcalendar.activities;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,7 +19,6 @@ import android.widget.TextView;
 
 import com.example.android.lifecycle.R;
 import com.example.android.lifecycle.util.StatusTracker;
-import com.example.android.lifecycle.util.Utils;
 
 public class TestImageViewActivity extends Activity implements OnTouchListener {
 
@@ -30,9 +30,9 @@ public class TestImageViewActivity extends Activity implements OnTouchListener {
 	private boolean neverShifted = true;
 
 	private static final String TAG = "TestImageViewActivity";
-	private static final String IMAGE_KEY = "TestImageViewActivity.ImageKey";
-	private static final String TEARING_OFF_LIMIT_DAY_KEY = "TestImageViewActivity.TEARING_OFF_LIMIT_DAY_KEY";
-	private static final int MAXIMUM_DAYS_TO_TEAR_OFF = 5;
+	public static final String IMAGE_KEY = "TestImageViewActivity.ImageKey";
+	public static final String TEARING_OFF_LIMIT_DAY_KEY = "TestImageViewActivity.TEARING_OFF_LIMIT_DAY_KEY";
+	public static final int MAXIMUM_DAYS_TO_TEAR_OFF = 100;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -164,6 +164,8 @@ public class TestImageViewActivity extends Activity implements OnTouchListener {
 						Log.v(TAG, "Activity: Starting TextCardActivity!");
 						Intent intent = new Intent(TestImageViewActivity.this,
 								TextCardActivity.class);
+						// For the day teared off
+						intent.putExtra(IMAGE_KEY, currentImageId); 
 						startActivity(intent);
 					}
 				} else {
@@ -202,6 +204,12 @@ public class TestImageViewActivity extends Activity implements OnTouchListener {
 		SharedPreferences.Editor editor = sharedPref.edit();
 		editor.clear();
 		editor.commit();
+	}
+	
+	public static Date convertIdToDate(int id) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.DAY_OF_YEAR, id);
+		return calendar.getTime();
 	}
 
 	// private void printCoordinates(float x, float y) {
