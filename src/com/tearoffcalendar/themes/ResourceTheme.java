@@ -3,8 +3,6 @@
  */
 package com.tearoffcalendar.themes;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -13,8 +11,12 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+
+import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
 
 import android.content.Context;
 
@@ -33,9 +35,9 @@ public class ResourceTheme implements BasicTheme {
 	private String filename;
 	private Context context;
 	/**
-	 * Cashed input stream
+	 * Cashed xml
 	 */
-	private InputStream stream;
+	private Node xml;
 
 	private static final String DATE_FORMAT = "yyyy-MM-dd";
 
@@ -43,7 +45,7 @@ public class ResourceTheme implements BasicTheme {
 			throws ThemeException {
 		this.filename = filename;
 		this.context = context;
-		this.stream = null;
+		this.xml = null;
 		readFields();
 	}
 
@@ -58,16 +60,21 @@ public class ResourceTheme implements BasicTheme {
 		try {
 			assetStream = context.getAssets().open(filename);
 			try {
+				InputSource source = new InputSource(assetStream);
 				SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
-
+				
 				XPath selector = XPathFactory.newInstance().newXPath();
-				name = selector.evaluate("theme/name", assetStream);
-				startDate = formatter.parse(selector.evaluate(
-						"theme/startdate", assetStream));
-				endDate = formatter.parse(selector.evaluate("theme/enddate",
-						assetStream));
-				description = selector.evaluate("theme/description",
-						assetStream);
+				
+				// parse the whole xml first to avoid reparsing it for each expression
+				Node root = (Node) selector.evaluate("/", source, XPathConstants.NODE);
+				
+				// read fields
+				name = selector.evaluate("/theme/name/text()", root);
+				startDate = formatter.parse(selector.evaluate("/theme/startdate/text()", root));
+				endDate = formatter.parse(selector.evaluate("/theme/enddate/text()",
+						root));
+				description = selector.evaluate("/theme/description/text()",
+						root);
 			} catch (XPathExpressionException e) {
 				throw new ThemeException(
 						"XPath evaluation failed while parsing " + filename, e);
@@ -147,48 +154,38 @@ public class ResourceTheme implements BasicTheme {
 		// use xpath to retrieve the text card
 		XPath selectText = XPathFactory.newInstance().newXPath();
 		String expression = String.format(
-				"/theme/textcards/textcard[date=\"%s\"]/text",
+				"/theme/textcards/textcard[date=\"%s\"]/text/text()",
 				formatter.format(date));
-		InputStream stream = getInputStream();
 		try {
-			return selectText.evaluate(expression, stream);
+			return selectText.evaluate(expression, getXml());
 		} catch (XPathExpressionException e) {
 			throw new ThemeException("XPath error while parsing " + filename, e);
 		}
 	}
 
-	private static final int IO_BUFFER_SIZE = 4 * 1024;
-
 	/**
-	 * @return A stream to read xml data from.
+	 * @return A root node of the parsed xml
 	 * @throws ThemeException
 	 */
-	private InputStream getInputStream() throws ThemeException {
-		if (stream == null) {
+	private Node getXml() throws ThemeException {		
+		if (xml == null) {
 			try {
-				ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-				try {
-					InputStream assetStream = context.getAssets()
+				InputStream assetStream = context.getAssets()
 							.open(filename);
-					try {
-						byte[] b = new byte[IO_BUFFER_SIZE];
-						int read;
-						while ((read = assetStream.read(b)) != -1) {
-							outStream.write(b, 0, read);
-						}
-						stream = new ByteArrayInputStream(
-								outStream.toByteArray());
-					} finally {
-						assetStream.close();
-					}
+				try {
+					XPath parser = XPathFactory.newInstance().newXPath();
+					xml = (Node)parser.evaluate("/", new InputSource(assetStream), XPathConstants.NODE);
+				} catch (XPathExpressionException e) {
+					throw new ThemeException(
+							"XPath evaluation failed while parsing " + filename, e);
 				} finally {
-					outStream.close();
+					assetStream.close();
 				}
 			} catch (IOException e) {
-				throw new ThemeException("IOError while dealing with "
+				throw new ThemeException("IO exception when working with "
 						+ filename, e);
 			}
 		}
-		return stream;
+		return xml;
 	}
 }

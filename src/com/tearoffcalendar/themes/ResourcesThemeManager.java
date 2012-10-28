@@ -31,7 +31,7 @@ public class ResourcesThemeManager implements BasicThemeManager {
 			throw new ThemeException("IOException when retrieving list of themes from " + THEMES_FOLDER, e);
 		}
 		for (String filename: themeFileNames) {
-			BasicTheme theme = new ResourceTheme(THEMES_FOLDER + filename, context); 
+			BasicTheme theme = new ResourceTheme(THEMES_FOLDER + "/" + filename, context); 
 			themes.put(theme.getName(), theme);			
 		}		
 	}
