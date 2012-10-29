@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
@@ -39,6 +40,13 @@ public class TestImageViewActivity extends Activity implements OnTouchListener {
 		super.onCreate(savedInstanceState);
 		
 		neverShifted = true;
+		
+        SharedPreferences globalSharedPref = this.getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        String themeNameKey = getString(R.string.current_theme_key);
+        String themeName = globalSharedPref.getString(themeNameKey, "");
+        Log.v(TAG, "Theme name: " + themeName);
+		
 
 		// Need to set image not by id, but getting it from saved instance state
 		SharedPreferences sharedPref = this.getPreferences(MODE_PRIVATE);
