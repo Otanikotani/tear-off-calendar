@@ -63,6 +63,8 @@ limitations under the License.
     <string name="current_theme_key">com.tearoffcalendar.activities.main.activity.current.theme.key</string>
     <string name="title_activity_theme_chooser">ThemeChooserActivity</string>
     <string name="pirates">Ahoi, yarr?</string>
-    <string name="ninjas">Varrida!</string>    
+    <string name="ninjas">Varrida!</string>
+    <string name="title_activity_display_menu">DisplayMenuActivity</string>
+    <string name="title_activity_card_collection">CardCollectionActivity</string>
 
 </resources>

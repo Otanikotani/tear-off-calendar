@@ -21,7 +21,7 @@ import android.widget.TextView;
 import com.example.android.lifecycle.R;
 import com.example.android.lifecycle.util.StatusTracker;
 
-public class TestImageViewActivity extends Activity implements OnTouchListener {
+public class TestImageViewActivity extends DisplayMenuActivity implements OnTouchListener {
 
 	private StatusTracker mStatusTracker = StatusTracker.getInstance();
 	private ImageView imageToMove;

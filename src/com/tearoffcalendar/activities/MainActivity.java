@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 
 import com.example.android.lifecycle.DialogActivity;
@@ -30,7 +31,7 @@ import com.example.android.lifecycle.R;
 /**
  * Example Activity to demonstrate the lifecycle callback methods.
  */
-public class MainActivity extends Activity {
+public class MainActivity extends DisplayMenuActivity {
 
 	private static final String TAG = "MainActivity";
 
@@ -56,6 +57,12 @@ public class MainActivity extends Activity {
 			Intent intent = new Intent(this, ThemeChooserActivity.class);
 			startActivity(intent);
 		}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main_activity, menu);
+		return true;
 	}
 
 	@Override

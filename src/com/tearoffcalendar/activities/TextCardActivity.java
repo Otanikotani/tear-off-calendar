@@ -1,6 +1,5 @@
 package com.tearoffcalendar.activities;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
@@ -21,7 +20,7 @@ import com.tearoffcalendar.themes.BasicTheme;
 import com.tearoffcalendar.themes.BasicThemeManager;
 import com.tearoffcalendar.themes.ThemeException;
 
-public class TextCardActivity extends Activity implements OnTouchListener {
+public class TextCardActivity extends DisplayMenuActivity implements OnTouchListener {
 
 	private WebView mMainView;
 
