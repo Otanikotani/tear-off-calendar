@@ -1,8 +1,11 @@
 package com.tearoffcalendar.activities;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,7 +23,8 @@ import com.tearoffcalendar.themes.BasicTheme;
 import com.tearoffcalendar.themes.BasicThemeManager;
 import com.tearoffcalendar.themes.ThemeException;
 
-public class TextCardActivity extends DisplayMenuActivity implements OnTouchListener {
+public class TextCardActivity extends DisplayMenuActivity implements
+		OnTouchListener {
 
 	private WebView mMainView;
 
@@ -32,6 +36,10 @@ public class TextCardActivity extends DisplayMenuActivity implements OnTouchList
 	private static final BasicThemeManager themeManager = TearOffApp
 			.getInstance().getThemeManager();
 	private BasicTheme theme;
+	private int currentCardId;
+
+	// We need to save them globally
+	public static Set<String> tornCards;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -40,20 +48,24 @@ public class TextCardActivity extends DisplayMenuActivity implements OnTouchList
 		mMainView = (WebView) findViewById(R.id.text_card_web_view);
 		mMainView.setBackgroundColor(0);
 
+		SharedPreferences sharedPref = this.getSharedPreferences(
+				getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+		tornCards = sharedPref.getStringSet(
+				getString(R.string.preference_file_torn_cards_key),
+				new HashSet<String>());
+
 		// We need to know card id here.
 		Intent intent = getIntent();
 		Date date = null;
-		int cardId = intent.getIntExtra(TestImageViewActivity.IMAGE_KEY, -1);
-		if (-1 == cardId) {
+		currentCardId = intent.getIntExtra(TestImageViewActivity.IMAGE_KEY, -1);
+		if (-1 == currentCardId) {
 			// Throw something! But we can't throw from onCreate() can we ?
 		} else {
-			Log.v(TAG, "Card id: " + String.valueOf(cardId));
-			date = TestImageViewActivity.convertIdToDate(cardId);
-			Log.v(TAG, "Date: " + String.valueOf(date));
+			Log.v(TAG, "Card id: " + String.valueOf(currentCardId));
+			date = TestImageViewActivity.convertIdToDate(currentCardId);
+			Log.v(TAG, "Date: " + TestImageViewActivity.formatDate(date));
 		}
 
-		SharedPreferences sharedPref = this.getSharedPreferences(
-				getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 		String themeNameKey = getString(R.string.current_theme_key);
 		String currentThemeName = sharedPref.getString(themeNameKey, "");
 		if (currentThemeName.isEmpty()) {
@@ -62,9 +74,17 @@ public class TextCardActivity extends DisplayMenuActivity implements OnTouchList
 			try {
 				Log.v(TAG, "Current theme name: " + currentThemeName);
 				theme = themeManager.getThemeByName(currentThemeName);
-				mMainView.loadDataWithBaseURL("file:///android_res/raw/",
-						theme.getTextCard(date), "text/html", "utf-8", null);
-				mMainView.setOnTouchListener(this);
+				String str = theme.getTextCard(date);
+				if (str != null) {
+					mMainView
+							.loadDataWithBaseURL("file:///android_res/raw/",
+									theme.getTextCard(date), "text/html",
+									"utf-8", null);
+					mMainView.setOnTouchListener(this);
+				} else {
+					// Throw something! But we can't throw from onCreate() can
+					// we ?
+				}
 			} catch (ThemeException te) {
 				Log.e(TAG, te.getMessage());
 			}
@@ -104,6 +124,21 @@ public class TextCardActivity extends DisplayMenuActivity implements OnTouchList
 				Log.v(TAG, "Greater than max of delta y - not a click!");
 			} else {
 				Log.v(TAG, "Smaller than max of delta y - a click!");
+
+				// Save current id card as Date to torn cards registry
+				// serialize?
+				tornCards.add(TestImageViewActivity
+						.formatDate(TestImageViewActivity
+								.convertIdToDate(currentCardId)));
+				SharedPreferences sharedPref = this.getSharedPreferences(
+						getString(R.string.preference_file_key),
+						Context.MODE_PRIVATE);
+				SharedPreferences.Editor editor = sharedPref.edit();
+				editor.putStringSet(
+						getString(R.string.preference_file_torn_cards_key),
+						tornCards);
+				editor.commit();
+
 				Intent intent = new Intent(TextCardActivity.this,
 						TestImageViewActivity.class);
 				startActivity(intent);

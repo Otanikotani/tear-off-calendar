@@ -66,5 +66,6 @@ limitations under the License.
     <string name="ninjas">Varrida!</string>
     <string name="title_activity_display_menu">DisplayMenuActivity</string>
     <string name="title_activity_card_collection">CardCollectionActivity</string>
+    <string name="preference_file_torn_cards_key">com.tearoffcalendar.activities.global.preference_file_torn_cards_key</string>
 
 </resources>
