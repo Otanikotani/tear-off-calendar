@@ -17,6 +17,7 @@ package com.tearoffcalendar.activities;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -44,6 +45,13 @@ public class HeadlinesFragment extends ListFragment {
 	public void setCardNames(List<String> cardNames) {
 		this.cardNames = cardNames;
 	}
+	
+	public void resetCardNames() {
+		this.cardNames = new ArrayList<String>();
+        int layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
+                android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
+		setListAdapter(new ArrayAdapter<String>(getActivity(), layout, cardNames));
+	}
 
 	// The container Activity must implement this interface so the frag can deliver messages
     public interface OnHeadlineSelectedListener {
@@ -59,7 +67,7 @@ public class HeadlinesFragment extends ListFragment {
         int layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
                 android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
         
-        // Create an array adapter for the list view, using the Ipsum headlines array
+        // Create an array adapter for the list view
         setListAdapter(new ArrayAdapter<String>(getActivity(), layout, cardNames));
     }
 

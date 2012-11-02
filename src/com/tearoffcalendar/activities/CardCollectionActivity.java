@@ -29,6 +29,8 @@ public class CardCollectionActivity extends FragmentActivity implements
 
 	private String preferenceTornCardsCollectionKey;
 	private String preferenceFileKey;
+	
+	private HeadlinesFragment firstFragment;
 
 	private static final BasicThemeManager themeManager = TearOffApp
 			.getInstance().getThemeManager();
@@ -61,7 +63,7 @@ public class CardCollectionActivity extends FragmentActivity implements
 			}
 
 			// Create an instance of ExampleFragment
-			HeadlinesFragment firstFragment = new HeadlinesFragment();
+			firstFragment = new HeadlinesFragment();
 			firstFragment.setCardNames(list);
 
 			// In case this activity was started with special instructions from
@@ -116,24 +118,7 @@ public class CardCollectionActivity extends FragmentActivity implements
 			// Commit the transaction
 			transaction.commit();
 		}
-	} // private void initListView(List<String> list) {
-
-	// Log.v(TAG, list.toString());
-	// setListAdapter(new ArrayAdapter<String>(this, R.layout.list_torn_cards,
-	// list));
-	//
-	// ListView listView = getListView();
-	// listView.setTextFilterEnabled(true);
-	//
-	// listView.setOnItemClickListener(new OnItemClickListener() {
-	// public void onItemClick(AdapterView<?> parent, View view,
-	// int position, long id) {
-	// // When clicked, show a toast with the TextView text
-	// Toast.makeText(getApplicationContext(),
-	// ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
-	// }
-	// });
-	// }
+	} 
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_card_collection, menu);
@@ -152,8 +137,7 @@ public class CardCollectionActivity extends FragmentActivity implements
 			editor.commit();
 			// Pass empty list to reset view
 
-			// Adapt to fragments...
-			// initListView(new ArrayList<String>());
+			firstFragment.resetCardNames();
 			Toast.makeText(getApplicationContext(),
 					"Torn cards history is reset", Toast.LENGTH_SHORT).show();
 

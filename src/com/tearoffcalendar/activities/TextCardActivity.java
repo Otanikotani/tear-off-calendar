@@ -133,6 +133,7 @@ public class TextCardActivity extends DisplayMenuActivity implements
 				SharedPreferences sharedPref = this.getSharedPreferences(
 						getString(R.string.preference_file_key),
 						Context.MODE_PRIVATE);
+				Log.v(TAG, "Committing cards: " + tornCards.toString());
 				SharedPreferences.Editor editor = sharedPref.edit();
 				editor.putStringSet(
 						getString(R.string.preference_file_torn_cards_key),
