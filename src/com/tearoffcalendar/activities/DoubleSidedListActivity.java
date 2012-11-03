@@ -34,10 +34,9 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 	private static final String TAG = "DoubleSidedListActivity";
 	private static final String CURRENT_CARD_KEY = "DoubleSidedListActivity.CURRENT_CARD_KEY";
 
-	public static final int MAXIMUM_DAYS_TO_TEAR_OFF = 100;
+	public static final int MAXIMUM_DAYS_TO_TEAR_OFF = 1;
 
 	private String preferenceTornCardsCollectionKey;
-	private String preferenceFileKey;
 	private String currentThemeName;
 	private String themeNameKey;
 	private Card currentCard;
@@ -125,9 +124,8 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 		FaceDownCardFragment cardFrag = (FaceDownCardFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.face_down_card_fragment);
 		if (isLimit()) {
-			Log.v(TAG, "LIMIT!");
-			Intent intent = new Intent(this, LimitExceededDialogActivity.class);
-			startActivity(intent);
+			Toast.makeText(getApplicationContext(), "No hurry, don't tear everything!",
+					Toast.LENGTH_SHORT).show();
 		} else {
 			saveAsTorn(currentCard);
 			currentCard.increment();
@@ -220,7 +218,6 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 	}
 
 	private void saveCurrentCard(Card card) {
-		preferenceFileKey = getString(R.string.preference_file_key);
 		SharedPreferences.Editor editor = sharedPref.edit();
 		editor.putString(CURRENT_CARD_KEY, card.toString());
 		editor.commit();

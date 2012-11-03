@@ -38,15 +38,6 @@ limitations under the License.
             </intent-filter>
         </activity>   
         <activity
-            android:name="com.tearoffcalendar.activities.LimitExceededDialogActivity"
-            android:label="@string/title_activity_limit_exceeded_dialog" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name="com.tearoffcalendar.activities.DisplayMenuActivity"
             android:label="@string/title_activity_display_menu" >
             <intent-filter>
