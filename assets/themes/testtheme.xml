@@ -3,7 +3,7 @@
   <name>My cool theme</name>
   <description>This is a cool theme about cool stuff</description>
   <startdate>2012-10-28</startdate>
-  <enddate>2012-10-31</enddate>
+  <enddate>2012-11-31</enddate>
   <textcards>
     <textcard>
       <date>2012-10-28</date>
@@ -109,5 +109,57 @@
         ]]>
       </text>
     </textcard>
+    <textcard>
+      <date>2012-11-05</date>
+      <text>
+        <![CDATA[
+        <html>
+          <head></head>
+          <body>
+            This is the last <b>test</b> text card for 5th of November, 2012. The text here should be entertaining, not as boring as it is.
+          </body>
+        </html>
+        ]]>
+      </text>
+    </textcard>
+    <textcard>
+      <date>2012-11-06</date>
+      <text>
+        <![CDATA[
+        <html>
+          <head></head>
+          <body>
+            This is the last <b>test</b> text card for 6th of November, 2012. The text here should be entertaining, not as boring as it is.
+          </body>
+        </html>
+        ]]>
+      </text>
+    </textcard>
+    <textcard>
+      <date>2012-11-07</date>
+      <text>
+        <![CDATA[
+        <html>
+          <head></head>
+          <body>
+            This is the last <b>test</b> text card for 7th of November, 2012. The text here should be entertaining, not as boring as it is.
+          </body>
+        </html>
+        ]]>
+      </text>
+    </textcard>
+    <textcard>
+      <date>2012-11-08</date>
+      <text>
+        <![CDATA[
+        <html>
+          <head></head>
+          <body>
+            This is the last <b>test</b> text card for 8th of November, 2012. The text here should be entertaining, not as boring as it is.
+          </body>
+        </html>
+        ]]>
+      </text>
+    </textcard>    
     </textcards>
 </theme>

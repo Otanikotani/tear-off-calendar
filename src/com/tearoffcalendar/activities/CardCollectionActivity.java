@@ -23,14 +23,15 @@ import com.tearoffcalendar.themes.BasicThemeManager;
 import com.tearoffcalendar.themes.ThemeException;
 
 public class CardCollectionActivity extends FragmentActivity implements
-		HeadlinesFragment.OnHeadlineSelectedListener {
+		FaceUpCardFragment.OnHeadlineSelectedListener,
+		FaceDownCardFragment.OnFaceDownCardClickListener {
 
 	static final String TAG = "CardCollectionActivity";
 
 	private String preferenceTornCardsCollectionKey;
 	private String preferenceFileKey;
-	
-	private HeadlinesFragment firstFragment;
+
+	private FaceUpCardFragment firstFragment;
 
 	private static final BasicThemeManager themeManager = TearOffApp
 			.getInstance().getThemeManager();
@@ -63,7 +64,7 @@ public class CardCollectionActivity extends FragmentActivity implements
 			}
 
 			// Create an instance of ExampleFragment
-			firstFragment = new HeadlinesFragment();
+			firstFragment = new FaceUpCardFragment();
 			firstFragment.setCardNames(list);
 
 			// In case this activity was started with special instructions from
@@ -84,8 +85,8 @@ public class CardCollectionActivity extends FragmentActivity implements
 		// HeadlinesFragment
 
 		// Capture the card fragment from the activity layout
-		CardFragment cardFrag = (CardFragment) getSupportFragmentManager()
-				.findFragmentById(R.id.card_fragment);
+		FaceDownCardFragment cardFrag = (FaceDownCardFragment) getSupportFragmentManager()
+				.findFragmentById(R.id.face_down_card_fragment);
 
 		if (cardFrag != null) {
 			// If card frag is available, we're in two-pane layout...
@@ -99,11 +100,11 @@ public class CardCollectionActivity extends FragmentActivity implements
 			// must swap frags...
 
 			// Create fragment and give it an argument for the selected article
-			CardFragment newFragment = new CardFragment();
+			FaceDownCardFragment newFragment = new FaceDownCardFragment();
 			Bundle args = new Bundle();
 			String str = getWebViewTextByDate(date);
 			Log.v(TAG, "One pane, resulted: " + str);
-			args.putString(CardFragment.CARD_WEB_VIEW_KEY, str);
+			args.putString(FaceDownCardFragment.CARD_WEB_VIEW_KEY, str);
 			newFragment.setArguments(args);
 			FragmentTransaction transaction = getSupportFragmentManager()
 					.beginTransaction();
@@ -118,7 +119,7 @@ public class CardCollectionActivity extends FragmentActivity implements
 			// Commit the transaction
 			transaction.commit();
 		}
-	} 
+	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_card_collection, menu);
@@ -146,15 +147,14 @@ public class CardCollectionActivity extends FragmentActivity implements
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	private String getWebViewTextByDate(Date date) {
 		SharedPreferences sharedPref = this.getSharedPreferences(
-				getString(R.string.preference_file_key),
-				Context.MODE_PRIVATE);
+				getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 		String themeNameKey = getString(R.string.current_theme_key);
 		String currentThemeName = sharedPref.getString(themeNameKey, "");
 		if (currentThemeName.isEmpty()) {
-			// Add errh
+			// TODO: Add errh
 		} else {
 			try {
 				BasicTheme theme = themeManager
@@ -164,8 +164,17 @@ public class CardCollectionActivity extends FragmentActivity implements
 				Log.e(TAG, te.getMessage());
 				return "";
 			}
-		}		
+		}
 		return "";
+	}
+
+	public void onFaceDownCardClick() {
+		Log.v(TAG, "Clicked!");
+		FragmentTransaction transaction = getSupportFragmentManager()
+				.beginTransaction();
+		transaction.replace(R.id.fragment_container, firstFragment);
+		transaction.addToBackStack(null);
+		transaction.commit();
 	}
 
 }

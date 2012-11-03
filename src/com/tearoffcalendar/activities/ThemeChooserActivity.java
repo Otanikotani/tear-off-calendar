@@ -65,7 +65,7 @@ public class ThemeChooserActivity extends Activity implements
 		editor.putString(themeNameKey, availableThemes.get(checkedId).getName());
 		editor.commit();
 		Intent intent = new Intent(this,
-				MainActivity.class);
+				DoubleSidedListActivity.class);
 		startActivity(intent);
 	}
 

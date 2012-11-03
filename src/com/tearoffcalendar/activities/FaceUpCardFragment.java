@@ -26,32 +26,19 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.android.lifecycle.R;
 
-public class HeadlinesFragment extends ListFragment {
+public class FaceUpCardFragment extends ListFragment {
     OnHeadlineSelectedListener mCallback;
     private List<String> cardNames;
     
-    private static final String TAG = "HeadlinesFragment";
-
-    public List<String> getCardNames() {
-		return cardNames;
-	}
-
-	public void setCardNames(List<String> cardNames) {
-		this.cardNames = cardNames;
-	}
-	
-	public void resetCardNames() {
-		this.cardNames = new ArrayList<String>();
-        int layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
-                android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
-		setListAdapter(new ArrayAdapter<String>(getActivity(), layout, cardNames));
-	}
+    private static final String TAG = "FaceUpCardFragment";
 
 	// The container Activity must implement this interface so the frag can deliver messages
     public interface OnHeadlineSelectedListener {
@@ -64,22 +51,14 @@ public class HeadlinesFragment extends ListFragment {
         super.onCreate(savedInstanceState);
 
         // We need to use a different list item layout for devices older than Honeycomb
-        int layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
-                android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
-        
-        // Create an array adapter for the list view
-        setListAdapter(new ArrayAdapter<String>(getActivity(), layout, cardNames));
+        updateListView();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
-        // When in two-pane layout, set the listview to highlight the selected list item
-        // (We do this during onStart because at the point the listview is available.)
-        if (getFragmentManager().findFragmentById(R.id.card_fragment) != null) {
-            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        }
+        Log.v(TAG, "On start");
+        updateListView();
     }
 
     @Override
@@ -101,7 +80,7 @@ public class HeadlinesFragment extends ListFragment {
         // Notify the parent activity of selected item
     	String string = cardNames.get(position);
     	Log.v(TAG, "onListItemClick Card name: " + string);
-        SimpleDateFormat dateFormat = new SimpleDateFormat(TestImageViewActivity.DATE_FORMAT); 
+        SimpleDateFormat dateFormat = new SimpleDateFormat(Card.DATE_FORMAT); 
         try {
         	Date convertedDate = dateFormat.parse(string);
         	mCallback.onCardSelected(convertedDate);
@@ -112,4 +91,26 @@ public class HeadlinesFragment extends ListFragment {
         // Set the item as checked to be highlighted when in two-pane layout
         getListView().setItemChecked(position, true);
     }
+    
+    public List<String> getCardNames() {
+		return cardNames;
+	}
+
+	public void setCardNames(List<String> cardNames) {
+		this.cardNames = cardNames;
+	}
+	
+	public void resetCardNames() {
+		this.cardNames = new ArrayList<String>();
+		updateListView();
+	}    
+    
+    public void updateListView() {
+        int layout = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
+                android.R.layout.simple_list_item_activated_1 : android.R.layout.simple_list_item_1;
+        // Create an array adapter for the list view
+        Log.v(TAG, cardNames.toString());
+        setListAdapter(new ArrayAdapter<String>(getActivity(), layout, cardNames));
+    }
+    
 }
