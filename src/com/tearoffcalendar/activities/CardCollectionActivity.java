@@ -1,6 +1,7 @@
 package com.tearoffcalendar.activities;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -48,6 +49,7 @@ public class CardCollectionActivity extends FragmentActivity implements
 				preferenceTornCardsCollectionKey, new HashSet<String>());
 		Log.v(TAG, tornCards.toString());
 		List<String> list = new ArrayList<String>(tornCards);
+		Collections.sort(list);
 
 		setContentView(R.layout.card_fragment_container);
 
