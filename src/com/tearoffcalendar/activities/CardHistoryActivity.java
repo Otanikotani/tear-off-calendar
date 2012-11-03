@@ -23,7 +23,7 @@ import com.tearoffcalendar.themes.BasicTheme;
 import com.tearoffcalendar.themes.BasicThemeManager;
 import com.tearoffcalendar.themes.ThemeException;
 
-public class CardCollectionActivity extends FragmentActivity implements
+public class CardHistoryActivity extends FragmentActivity implements
 		FaceUpCardFragment.OnHeadlineSelectedListener,
 		FaceDownCardFragment.OnFaceDownCardClickListener {
 

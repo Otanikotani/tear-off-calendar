@@ -65,7 +65,7 @@ limitations under the License.
             </intent-filter>
         </activity>
         <activity
-            android:name="com.tearoffcalendar.activities.CardCollectionActivity"
+            android:name="com.tearoffcalendar.activities.CardHistoryActivity"
             android:label="@string/title_activity_card_collection" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

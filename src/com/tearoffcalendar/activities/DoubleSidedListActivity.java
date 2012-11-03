@@ -150,7 +150,7 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 		switch (item.getItemId()) {
 		case R.id.menu_collection:
 			Log.v(TAG, "Menu collection!");
-			Intent intent = new Intent(this, CardCollectionActivity.class);
+			Intent intent = new Intent(this, CardHistoryActivity.class);
 			startActivity(intent);
 			return true;
 		case R.id.menu_settings:
