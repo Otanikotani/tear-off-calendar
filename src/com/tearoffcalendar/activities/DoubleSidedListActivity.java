@@ -47,12 +47,12 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.history);
+		setContentView(R.layout.card_fragment_container);
 
 		// Check whether the activity is using the layout version with
 		// the fragment_container FrameLayout. If so, we must add the first
 		// fragment
-		if (findViewById(R.id.fragment_container) != null) {
+		if (findViewById(R.id.card_fragment_container) != null) {
 
 			// However, if we're being restored from a previous state,
 			// then we don't need to do anything and should return or else
@@ -89,7 +89,7 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 
 			// Add the fragment to the 'fragment_container' FrameLayout
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.fragment_container, faceUpCardFragment).commit();
+					.add(R.id.card_fragment_container, faceUpCardFragment).commit();
 
 		}
 	}
@@ -235,7 +235,7 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 		// fragment,
 		// and add the transaction to the back stack so the user can
 		// navigate back
-		transaction.replace(R.id.fragment_container, faceDownCardFragment);
+		transaction.replace(R.id.card_fragment_container, faceDownCardFragment);
 		transaction.addToBackStack(null);
 		// Commit the transaction
 		transaction.commit();
@@ -244,7 +244,7 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 	private void switchToFaceUp() {
 		FragmentTransaction transaction = getSupportFragmentManager()
 				.beginTransaction();
-		transaction.replace(R.id.fragment_container, faceUpCardFragment);
+		transaction.replace(R.id.card_fragment_container, faceUpCardFragment);
 		transaction.addToBackStack(null);
 		// Commit the transaction
 		transaction.commit();

@@ -49,12 +49,12 @@ public class CardCollectionActivity extends FragmentActivity implements
 		Log.v(TAG, tornCards.toString());
 		List<String> list = new ArrayList<String>(tornCards);
 
-		setContentView(R.layout.history);
+		setContentView(R.layout.card_fragment_container);
 
 		// Check whether the activity is using the layout version with
 		// the fragment_container FrameLayout. If so, we must add the first
 		// fragment
-		if (findViewById(R.id.fragment_container) != null) {
+		if (findViewById(R.id.card_fragment_container) != null) {
 
 			// However, if we're being restored from a previous state,
 			// then we don't need to do anything and should return or else
@@ -74,7 +74,7 @@ public class CardCollectionActivity extends FragmentActivity implements
 
 			// Add the fragment to the 'fragment_container' FrameLayout
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.fragment_container, firstFragment).commit();
+					.add(R.id.card_fragment_container, firstFragment).commit();
 		}
 
 		// initListView(list);
@@ -113,7 +113,7 @@ public class CardCollectionActivity extends FragmentActivity implements
 			// fragment,
 			// and add the transaction to the back stack so the user can
 			// navigate back
-			transaction.replace(R.id.fragment_container, newFragment);
+			transaction.replace(R.id.card_fragment_container, newFragment);
 			transaction.addToBackStack(null);
 
 			// Commit the transaction
@@ -172,7 +172,7 @@ public class CardCollectionActivity extends FragmentActivity implements
 		Log.v(TAG, "Clicked!");
 		FragmentTransaction transaction = getSupportFragmentManager()
 				.beginTransaction();
-		transaction.replace(R.id.fragment_container, firstFragment);
+		transaction.replace(R.id.card_fragment_container, firstFragment);
 		transaction.addToBackStack(null);
 		transaction.commit();
 	}

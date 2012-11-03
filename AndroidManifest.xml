@@ -37,33 +37,6 @@ limitations under the License.
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>   
-        <!--      
-        <activity
-            android:name="com.tearoffcalendar.activities.MainActivity"
-             >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.tearoffcalendar.activities.TestImageViewActivity"
-            android:label="@string/title_activity_test_image_view" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=" com.tearoffcalendar.activities.ActivityA" />
-        </activity>
-        <activity
-            android:name="com.tearoffcalendar.activities.TextCardActivity"
-            android:label="@string/title_activity_text_card" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-         -->
         <activity
             android:name="com.tearoffcalendar.activities.LimitExceededDialogActivity"
             android:label="@string/title_activity_limit_exceeded_dialog" >
