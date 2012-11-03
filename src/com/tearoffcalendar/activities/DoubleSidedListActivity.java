@@ -2,12 +2,15 @@ package com.tearoffcalendar.activities;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,8 +29,8 @@ import com.tearoffcalendar.themes.ThemeException;
 
 public class DoubleSidedListActivity extends FragmentActivity implements
 		FaceDownCardFragment.OnFaceDownCardClickListener,
-		FaceUpCardFragment.OnHeadlineSelectedListener {
-
+		FaceUpCardFragment.OnHeadlineSelectedListener
+		{
 	private static final String TAG = "DoubleSidedListActivity";
 	private static final String CURRENT_CARD_KEY = "DoubleSidedListActivity.CURRENT_CARD_KEY";
 
@@ -35,10 +38,14 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 
 	private String preferenceTornCardsCollectionKey;
 	private String preferenceFileKey;
+	private String currentThemeName;
+	private String themeNameKey;
 	private Card currentCard;
 
 	private FaceDownCardFragment faceDownCardFragment;
 	private FaceUpCardFragment faceUpCardFragment;
+	private SharedPreferences sharedPref;
+	
 
 	private static final BasicThemeManager themeManager = TearOffApp
 			.getInstance().getThemeManager();
@@ -61,10 +68,17 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 				return;
 			}
 
+			sharedPref = this.getSharedPreferences(
+					getString(R.string.preference_file_key),
+					Context.MODE_PRIVATE);
+			themeNameKey = getString(R.string.current_theme_key);
+			currentThemeName = sharedPref.getString(themeNameKey, "");
+			if (currentThemeName.isEmpty()) {
+				Log.v(TAG, "First launch!");
+				pickTheme();
+			}
+
 			preferenceTornCardsCollectionKey = getString(R.string.preference_file_torn_cards_key);
-			preferenceFileKey = getString(R.string.preference_file_key);
-			SharedPreferences sharedPref = this.getSharedPreferences(
-					preferenceFileKey, Context.MODE_PRIVATE);
 
 			currentCard = new Card();
 			currentCard.setDateFromString(sharedPref.getString(
@@ -89,7 +103,8 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 
 			// Add the fragment to the 'fragment_container' FrameLayout
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.card_fragment_container, faceUpCardFragment).commit();
+					.add(R.id.card_fragment_container, faceUpCardFragment)
+					.commit();
 
 		}
 	}
@@ -104,7 +119,7 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 		faceUpCardFragment.setCardNames(list);
 		switchToFaceUp();
 	}
-	
+
 	public void onCardSelected(Date date) {
 		Log.v(TAG, "On card selected!");
 		FaceDownCardFragment cardFrag = (FaceDownCardFragment) getSupportFragmentManager()
@@ -139,7 +154,7 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 			}
 		}
 	}
-	
+
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_double_sided_list, menu);
 		return true;
@@ -161,8 +176,8 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 			list.add(currentCard.toString());
 			faceUpCardFragment.setCardNames(list);
 			faceUpCardFragment.updateListView();
-			Toast.makeText(getApplicationContext(),
-					"Cards are reset", Toast.LENGTH_SHORT).show();			
+			Toast.makeText(getApplicationContext(), "Cards are reset",
+					Toast.LENGTH_SHORT).show();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -170,15 +185,11 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 	}
 
 	public void showPopup(MenuItem v) {
-	}	
+	}
 
 	private String getWebViewTextByDate(Date date) {
-		SharedPreferences sharedPref = this.getSharedPreferences(
-				getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-		String themeNameKey = getString(R.string.current_theme_key);
-		String currentThemeName = sharedPref.getString(themeNameKey, "");
 		if (currentThemeName.isEmpty()) {
-			// Add errh
+			currentThemeName = sharedPref.getString(themeNameKey, "");
 		} else {
 			try {
 				BasicTheme theme = themeManager
@@ -210,16 +221,12 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 
 	private void saveCurrentCard(Card card) {
 		preferenceFileKey = getString(R.string.preference_file_key);
-		SharedPreferences sharedPref = this.getSharedPreferences(
-				preferenceFileKey, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPref.edit();
 		editor.putString(CURRENT_CARD_KEY, card.toString());
 		editor.commit();
 	}
 
 	private void saveAsTorn(Card card) {
-		SharedPreferences sharedPref = this.getSharedPreferences(
-				preferenceFileKey, Context.MODE_PRIVATE);
 		Set<String> tornCards = sharedPref.getStringSet(
 				preferenceTornCardsCollectionKey, new HashSet<String>());
 		tornCards.add(card.toString());
@@ -248,5 +255,35 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 		transaction.addToBackStack(null);
 		// Commit the transaction
 		transaction.commit();
+	}
+	
+	private void pickTheme() {
+     	//List items
+		Collection<BasicTheme> themes = themeManager.getAvailableThemes();
+		ArrayList<String> themeNames = new ArrayList<String>();
+		for (BasicTheme temp : themes) {
+			themeNames.add(temp.getName());
+		}
+		final CharSequence[] names = themeNames.toArray(new CharSequence[themeNames.size()]);
+    	//Prepare the list dialog box
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+    	//Set its title
+    	builder.setTitle("Pick a theme");
+
+    	//Set the list items and assign with the click listener
+    	builder.setItems(names, new DialogInterface.OnClickListener() {
+    		// Click listener
+    		public void onClick(DialogInterface dialog, int item) {
+    			currentThemeName = names[item].toString();
+    			SharedPreferences.Editor editor = sharedPref.edit();
+    			editor.putString(themeNameKey, currentThemeName);
+    			editor.commit();
+    	        Toast.makeText(getApplicationContext(), names[item], Toast.LENGTH_SHORT).show();
+    	    }
+    	});
+    	AlertDialog alert = builder.create();
+    	//display dialog box
+    	alert.show();		
 	}
 }
