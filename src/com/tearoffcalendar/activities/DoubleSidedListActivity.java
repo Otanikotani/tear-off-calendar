@@ -34,7 +34,7 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 	private static final String TAG = "DoubleSidedListActivity";
 	private static final String CURRENT_CARD_KEY = "DoubleSidedListActivity.CURRENT_CARD_KEY";
 
-	public static final int MAXIMUM_DAYS_TO_TEAR_OFF = 1;
+	public static final int MAXIMUM_DAYS_TO_TEAR_OFF = 14;
 
 	private String preferenceTornCardsCollectionKey;
 	private String currentThemeName;
