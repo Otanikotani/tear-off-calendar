@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_settings"
-          android:icon="@drawable/action_settings"
-          android:title="settings"
-          android:showAsAction="ifRoom" />
-    <item android:id="@+id/menu_collection"
-          android:icon="@drawable/collections_collection"
-          android:title="settings"
-          android:showAsAction="ifRoom" />    
+    <item android:id="@+id/settings_menu"
+          android:icon="@drawable/ic_action_overflow"
+          android:title="Settings"
+          android:showAsAction="always">
+          
+        <!-- Sub menu -->
+        <menu>
+            <item
+                android:id="@+id/theme_selection_menu"
+                android:enabled="true"
+                android:icon="@+drawable/theme_selection_menu"
+                android:showAsAction="ifRoom"
+                android:title="Select theme"
+                android:visible="true">
+            </item>
+            <item
+                android:id="@+id/card_history_menu"
+                android:enabled="true"
+                android:icon="@+drawable/card_history_menu"
+                android:showAsAction="ifRoom"
+                android:title="Card history"
+                android:visible="true">
+            </item>
+            <item
+                android:id="@+id/reset_menu"
+                android:enabled="true"
+                android:icon="@+drawable/content_discard"
+                android:showAsAction="ifRoom"
+                android:title="Reset cards"
+                android:visible="true">
+            </item>            
+        </menu>        
+	</item>
 </menu>

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -131,7 +132,7 @@ public class CardHistoryActivity extends FragmentActivity implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Log.v(TAG, "onOptionsItemSelected");
 		switch (item.getItemId()) {
-		case R.id.menu_settings:
+		case R.id.reset_menu:
 			Log.v(TAG, "Resetting torn cards collection...");
 			SharedPreferences sharedPref = this.getSharedPreferences(
 					preferenceFileKey, Context.MODE_PRIVATE);
@@ -143,8 +144,13 @@ public class CardHistoryActivity extends FragmentActivity implements
 			firstFragment.resetCardNames();
 			Toast.makeText(getApplicationContext(),
 					"Torn cards history is reset", Toast.LENGTH_SHORT).show();
-
 			return true;
+		case R.id.theme_selection_menu:
+			Log.v(TAG, "Theme selection menu!");
+			Toast.makeText(getApplicationContext(), "Theme selection menu! Under construction",
+					Toast.LENGTH_SHORT).show();
+			return true;
+			
 		default:
 			return super.onOptionsItemSelected(item);
 		}

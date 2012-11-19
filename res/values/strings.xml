@@ -20,8 +20,8 @@ limitations under the License.
     <string name="title_activity_limit_exceeded_dialog">LimitExceededDialogActivity</string>
     <string name="title_activity_theme_chooser">ThemeChooserActivity</string>
     <string name="title_activity_display_menu">DisplayMenuActivity</string>
-    <string name="title_activity_card_collection">CardCollectionActivity</string>
-    <string name="title_activity_double_sided_list">DoubleSidedListActivity</string>
+    <string name="title_activity_card_collection">History</string>
+    <string name="title_activity_double_sided_list">Card</string>
     <string name="current_theme_key">com.tearoffcalendar.activities.main.activity.current.theme.key</string>
     <string name="preference_file_key">com.tearoffcalendar.activities.global.preferences</string>
     <string name="preference_file_torn_cards_key">com.tearoffcalendar.activities.global.preference_file_torn_cards_key</string>

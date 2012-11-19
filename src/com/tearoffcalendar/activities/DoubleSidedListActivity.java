@@ -159,15 +159,10 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Log.v(TAG, "onOptionsItemSelected");
+		Log.v(TAG, "Item selected: " + item.toString());
 		switch (item.getItemId()) {
-		case R.id.menu_collection:
-			Log.v(TAG, "Menu collection!");
-			Intent intent = new Intent(this, CardHistoryActivity.class);
-			startActivity(intent);
-			return true;
-		case R.id.menu_settings:
-			Log.v(TAG, "Menu settings!");
+		case R.id.reset_menu:
+			Log.v(TAG, "Reset menu!");
 			currentCard.setDate(new Date());
 			saveCurrentCard(currentCard);
 			ArrayList<String> list = new ArrayList<String>();
@@ -177,7 +172,18 @@ public class DoubleSidedListActivity extends FragmentActivity implements
 			Toast.makeText(getApplicationContext(), "Cards are reset",
 					Toast.LENGTH_SHORT).show();
 			return true;
+		case R.id.card_history_menu:
+			Log.v(TAG, "Card history!");
+			Intent intent = new Intent(this, CardHistoryActivity.class);
+			startActivity(intent);
+			return true;
+		case R.id.theme_selection_menu:
+			Log.v(TAG, "Theme selection menu!");
+			Toast.makeText(getApplicationContext(), "Theme selection menu! Under construction",
+					Toast.LENGTH_SHORT).show();
+			return true;
 		default:
+			Log.v(TAG, "Default handling!");
 			return super.onOptionsItemSelected(item);
 		}
 	}

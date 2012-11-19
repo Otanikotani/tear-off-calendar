@@ -160,6 +160,97 @@
         </html>
         ]]>
       </text>
-    </textcard>    
+    </textcard>
+    <textcard>
+      <date>2012-11-19</date>
+      <text>
+        <![CDATA[
+        <html>
+          <head></head>
+          <body>
+            Today's 2012-11-19
+          </body>
+        </html>
+        ]]>
+      </text>
+    </textcard>         
+    <textcard>
+      <date>2012-11-20</date>
+      <text>
+        <![CDATA[
+        <html>
+          <head></head>
+          <body>
+            Today's 2012-11-20
+          </body>
+        </html>
+        ]]>
+      </text>
+    </textcard>         
+    <textcard>
+      <date>2012-11-21</date>
+      <text>
+        <![CDATA[
+        <html>
+          <head></head>
+          <body>
+            Today's 2012-11-21
+          </body>
+        </html>
+        ]]>
+      </text>
+    </textcard>         
+    <textcard>
+      <date>2012-11-22</date>
+      <text>
+        <![CDATA[
+        <html>
+          <head></head>
+          <body>
+            Today's 2012-11-22
+          </body>
+        </html>
+        ]]>
+      </text>
+    </textcard>         
+    <textcard>
+      <date>2012-11-23</date>
+      <text>
+        <![CDATA[
+        <html>
+          <head></head>
+          <body>
+            Today's 2012-11-23
+          </body>
+        </html>
+        ]]>
+      </text>
+    </textcard>         
+        <textcard>
+      <date>2012-11-24</date>
+      <text>
+        <![CDATA[
+        <html>
+          <head></head>
+          <body>
+            Today's 2012-11-24
+          </body>
+        </html>
+        ]]>
+      </text>
+    </textcard>         
+    <textcard>
+      <date>2012-11-25</date>
+      <text>
+        <![CDATA[
+        <html>
+          <head></head>
+          <body>
+            Today's 2012-11-25
+          </body>
+        </html>
+        ]]>
+      </text>
+    </textcard>         
     </textcards>
 </theme>

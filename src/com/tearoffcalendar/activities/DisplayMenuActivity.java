@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.android.lifecycle.R;
 
@@ -18,16 +19,18 @@ public class DisplayMenuActivity extends Activity {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Log.v(TAG, "onOptionsItemSelected");
+		Log.v(TAG, "DisplayMenuActivity: Item selected: " + item.toString());
 
 		switch (item.getItemId()) {
-		case R.id.menu_collection:
-			Log.v(TAG, "Menu collection!");
+		case R.id.card_history_menu:
+			Log.v(TAG, "Card history!");
 			Intent intent = new Intent(this, CardHistoryActivity.class);
 			startActivity(intent);
 			return true;
-		case R.id.menu_settings:
-			Log.v(TAG, "Menu settings!");
+		case R.id.theme_selection_menu:
+			Log.v(TAG, "Theme selection menu!");
+			Toast.makeText(getApplicationContext(), "Theme selection menu! Under construction",
+					Toast.LENGTH_SHORT).show();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
